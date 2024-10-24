@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -33,5 +34,48 @@ namespace OneThing.Models
             Actions actions = new Actions(driver);
             actions.DoubleClick(element).Perform();
         }
+
+        public static void FillDailyLogForm(IWebDriver driver,string task)
+        {
+            WaitForSpinnerToDisappear(driver);
+            string InTime = "09:30 AM";
+            string OutTime = "06:30 PM";
+
+            var SelectTask = new SelectElement(driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div[2]/div[2]/select")));
+            SelectTask.SelectByText(task);
+            var InTimeElement = new SelectElement(driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div[4]/div[2]/select[1]")));
+            InTimeElement.SelectByText(InTime);
+            var OutTimeElement = new SelectElement(driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div[4]/div[2]/select[5]")));
+            OutTimeElement.SelectByText(OutTime);
+            driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[2]")).Click();
+
+            WaitForSpinnerToDisappear(driver);
+        }
+
+        public static List<Task> LoadTasks(string filePath)
+        {
+            var json = File.ReadAllText(filePath);
+            var taskList = JsonSerializer.Deserialize<TaskList>(json);
+            return taskList.Tasks;
+        }
+
+        public static void DisplayHelp(List<Task> tasks)
+        {
+            Console.WriteLine("Extended Help:");
+            Console.WriteLine("This application allows you to perform various tasks.");
+            Console.WriteLine("Usage:");
+            Console.WriteLine("  yourapp.exe -p <pin> -t <task_number>");
+            Console.WriteLine();
+            Console.WriteLine("Available tasks:");
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"  {task.Id}: {task.Description}");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Examples:");
+            Console.WriteLine("  yourapp.exe -p 1234 -t 1   # Executes Task One");
+            Console.WriteLine("  yourapp.exe --help          # Displays this help");
+        }
+        
     }
 }

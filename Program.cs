@@ -10,9 +10,12 @@ var configuration = new ConfigurationBuilder()
             .Build();
 AppSettings AppSettings = configuration.GetSection("AppSettings").Get<AppSettings>();
 
+
 AppArgs appArgs = new AppArgs();
+appArgs.TaskList = Helper.LoadTasks("./tasks.json");
 ValidateArgs.IsArgsValid(args, appArgs);
 
+Environment.Exit(0);
 IWebDriver driver = new ChromeDriver();
 Login login = new Login(AppSettings.Email, AppSettings.URL ,AppSettings.Domain,appArgs.Pin.ToString());
 login.LoginToOneThing(driver);
@@ -22,12 +25,13 @@ Navigate.SwitchWorkSpace(driver);
 Navigate.WeeklySchedule(driver);
 
 var weekDays = driver.FindElements(By.XPath("//*[contains(@class, 'dhx_scale_holder')]"));
-// var monday = driver.FindElement(By.XPath("//*[@id=\"app\"]/div/div[2]/div[1]/div/div[5]/div[1]"));
+
+
 foreach(var day in weekDays){
-
+    Helper.DoubleClickElement(driver,day);
+    Helper.FillDailyLogForm(driver,appArgs.Task);
+    break;
 }
-// Helper.DoubleClickElement(driver, monday);
-
 
 Console.WriteLine("Press Enter to exit...");
 Console.ReadLine();
