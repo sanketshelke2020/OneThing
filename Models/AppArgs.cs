@@ -10,5 +10,6 @@ namespace OneThing.Models
         public long Pin { get; set; }
         public string? Task { get; set; }
         public List<Task> TaskList { get; set; }
+        public string weeks { get; set; }
     }
 }

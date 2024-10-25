@@ -37,7 +37,6 @@ namespace OneThing.Models
 
         public static void FillDailyLogForm(IWebDriver driver,string task)
         {
-            WaitForSpinnerToDisappear(driver);
             string InTime = "09:30 AM";
             string OutTime = "06:30 PM";
 

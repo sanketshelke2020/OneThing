@@ -12,7 +12,9 @@ namespace OneThing.Models
         public long Pin { get; set; }
         [Option('t', "task", Required = true, HelpText = "Please provide the task number.\n")]
         public int TaskNumber { get; set; }
-       
+        [Option('w', "weeks", Required = true, HelpText = "Please provide a comma-separated list of week numbers (0 to 4).")]
+        public string Weeks { get; set; }
+
     }
 }
 
