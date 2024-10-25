@@ -12,3 +12,20 @@ Structure
     }
 }
 ```
+
+## Update tasks.json Add tasks from Select Task dropdown
+
+```
+{
+    "Tasks": [
+        {
+            "Id": 1,
+            "Description": "Working on Test1"
+        },
+        {
+            "Id": 2,
+            "Description": "Working on Test2"
+        }
+    ]
+}
+```
