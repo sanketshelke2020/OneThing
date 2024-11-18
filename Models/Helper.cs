@@ -15,7 +15,7 @@ namespace OneThing.Models
         {
             try
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 wait.Until(driver =>
                 {
@@ -63,7 +63,7 @@ namespace OneThing.Models
             Console.WriteLine("Extended Help:");
             Console.WriteLine("This application allows you to perform various tasks.");
             Console.WriteLine("Usage:");
-            Console.WriteLine("  yourapp.exe -p <pin> -t <task_number>");
+            Console.WriteLine("  yourapp.exe -p <pin> -t <task_number> -w <week behind : 1 last week , 0 current week (0-4)>");
             Console.WriteLine();
             Console.WriteLine("Available tasks:");
             foreach (var task in tasks)
@@ -72,7 +72,7 @@ namespace OneThing.Models
             }
             Console.WriteLine();
             Console.WriteLine("Examples:");
-            Console.WriteLine("  yourapp.exe -p 1234 -t 1   # Executes Task One");
+            Console.WriteLine("  yourapp.exe -p 1234 -t 1 -w 1,2  # Executes Task One");
             Console.WriteLine("  yourapp.exe --help          # Displays this help");
         }
         
